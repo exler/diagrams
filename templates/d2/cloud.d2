@@ -1,0 +1,67 @@
+aws_1.bucket_1 -> aws_2.bucket
+aws_2.subsystem.cloudwatch -> aws_1.subsystem.cloudwatch: Monitor template
+
+aws_1: AWS Cloud {
+    obj: Object
+    obj.shape: circle
+    obj.style.stroke: "#62a638"
+    bucket_1: Bucket
+    bucket_1.shape: image
+    bucket_1.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/s3/s3.svg
+    bucket_2: Bucket
+    bucket_2.shape: image
+    bucket_2.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/s3/s3.svg
+
+    obj -> bucket_1
+    bucket_1 -> subsystem.cloudtrail
+    subsystem.kinesis -> bucket_2
+
+    subsystem: "" {
+        cloudwatch: Amazon CloudWatch
+        cloudwatch.shape: image
+        cloudwatch.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/cloudwatch/cloudwatch.svg
+        cloudtrail: Amazon CloudTrail
+        cloudtrail.shape: image
+        cloudtrail.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/cloudtrail/cloudtrail.svg
+        sns: Amazon Simple Notification Service
+        sns.shape: image
+        sns.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/simple_notification_service/sns.svg
+        sqs: Amazon Simple Queue Service
+        sqs.shape: image
+        sqs.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/simple_queue_service/sqs.svg
+        lambda: AWS Lambda
+        lambda.shape: image
+        lambda.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/lambda/lambda.svg
+        kinesis: Amazon Kinesis Data Firehose
+        kinesis.shape: image
+        kinesis.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/kinesis_data_firehose/firehose.svg
+        dynamo: Amazon DynamoDB
+        dynamo.shape: image
+        dynamo.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/dynamodb/dynamodb.svg
+
+        cloudtrail -> cloudwatch -> sns -> sqs -> lambda
+        lambda -> dynamo
+        lambda -> kinesis
+    }
+}
+
+aws_2: AWS Cloud {
+    bucket: Bucket
+    bucket.shape: image
+    bucket.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/s3/s3.svg
+
+    bucket -> subsystem.cloudtrail
+
+    subsystem: "" {
+        cloudwatch: Amazon CloudWatch
+        cloudwatch.shape: image
+        cloudwatch.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/cloudwatch/cloudwatch.svg
+        cloudtrail: Amazon CloudTrail
+        cloudtrail.shape: image
+        cloudtrail.icon: https://raw.githubusercontent.com/exler/diagrams/main/icons/aws/cloudtrail/cloudtrail.svg
+
+        cloudtrail -> cloudwatch
+    }
+}
+
+
